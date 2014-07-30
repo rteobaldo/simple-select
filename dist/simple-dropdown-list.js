@@ -22,15 +22,17 @@
   var span = document.createElement('span');
   span.className = 'SimpleDropdownList-itemSelected';
   span.innerHTML = options.getElementsByTagName('li')[0].innerHTML;
-  button.appendChild(span);
 
   var caret = document.createElement('span');
   caret.className = 'SimpleDropdownList-caret';
+
+  /**
+   * Don't change order of appendChild's
+   *
+   */
+  button.appendChild(span);
   button.appendChild(caret);
-
-
   newDropdown.appendChild(button);
-
   newDropdown.appendChild(options);
 
   oldDropdown.parentNode.replaceChild(newDropdown, oldDropdown);
