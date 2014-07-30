@@ -2,6 +2,10 @@
 
   "use strict";
 
+  /**
+   * Elements configuration
+   */
+
   var oldDropdown = document.querySelector('.dropdown');
   var dropdownOptions = oldDropdown.querySelectorAll('option');
 
@@ -9,6 +13,9 @@
   newDropdown.className = 'SimpleDropdownList' + ' ' + oldDropdown.className;
 
   var options = document.createElement('ul');
+  options.className = 'SimpleDropdownList-options';
+
+  // Copy <option>'s from oldDropdown to new dropdown element
   for (var i = 0; i < dropdownOptions.length; i++) {
     var li = document.createElement('li');
     li.innerHTML = dropdownOptions[i].innerHTML;
@@ -26,14 +33,17 @@
   var caret = document.createElement('span');
   caret.className = 'SimpleDropdownList-caret';
 
+
   /**
-   * Don't change order of appendChild's
-   *
+   * Join all elements (Megazord?!)
+   * (Don't change order of appendChild's!)
    */
   button.appendChild(span);
   button.appendChild(caret);
   newDropdown.appendChild(button);
   newDropdown.appendChild(options);
 
+  // Replace de oldDropdown with newDropdown
   oldDropdown.parentNode.replaceChild(newDropdown, oldDropdown);
+
 })();

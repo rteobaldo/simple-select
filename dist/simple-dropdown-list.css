@@ -1,0 +1,15 @@
+.SimpleDropdownList {
+  display: inline-block;
+  font: 16px/1 sans-serif;
+}
+
+.SimpleDropdownList-button {
+  background: none;
+  border: none;
+}
+
+.SimpleDropdownList-options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
