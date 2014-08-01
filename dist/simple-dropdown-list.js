@@ -11,38 +11,42 @@
 
     _button: {},
     _simpleDropdown: {},
+    _optContainer: {},
+    _itemSelected: {},
 
-
-    /**
-     * Elements configuration
-     */
     _init: function (el) {
+      /**
+       * Elements configuration
+       */
+       var docFrag = document.createDocumentFragment();
+
       var oldDropdown = document.querySelector(el);
-      var dropdownOptions = oldDropdown.querySelectorAll('option');
+      var oldDropdownOptions = oldDropdown.querySelectorAll('option');
 
-      var simpleDropdown = document.createElement('div');
-      simpleDropdown.className = 'SimpleDropdownList' + ' ' + oldDropdown.className;
+      this._simpleDropdown = document.createElement('div');
+      this._simpleDropdown.className = 'SimpleDropdownList' + ' ' + oldDropdown.className;
 
-      var optContainer = document.createElement('div');
-      optContainer.className = 'SimpleDropdownList-optContainer';
+      this._optContainer = document.createElement('div');
+      this._optContainer.className = 'SimpleDropdownList-optContainer';
 
       var options = document.createElement('ul');
       options.className = 'SimpleDropdownList-options';
 
       // Copy <option>'s from oldDropdown to new dropdown element
-      for (var i = 0; i < dropdownOptions.length; i++) {
+      for (var i = 0; i < oldDropdownOptions.length; i++) {
         var li = document.createElement('li');
-        li.innerHTML = dropdownOptions[i].innerHTML;
+        li.innerHTML = oldDropdownOptions[i].innerHTML;
+        li.value = oldDropdownOptions[i].innerHTML;
         options.appendChild(li);
       }
 
-      var button = document.createElement('button');
-      button.className = 'SimpleDropdownList-button';
-      button.type = 'button';
+      this._button = document.createElement('button');
+      this._button.className = 'SimpleDropdownList-button';
+      this._button.type = 'button';
 
-      var itemSelected = document.createElement('span');
-      itemSelected.className = 'SimpleDropdownList-itemSelected';
-      itemSelected.innerHTML = options.getElementsByTagName('li')[0].innerHTML;
+      this._itemSelected = document.createElement('span');
+      this._itemSelected.className = 'SimpleDropdownList-itemSelected';
+      this._itemSelected.innerHTML = options.getElementsByTagName('li')[0].innerHTML;
 
       var caret = document.createElement('span');
       caret.className = 'SimpleDropdownList-caret';
@@ -52,27 +56,54 @@
        * Join all elements (Megazord?!)
        * (Don't change order of appendChild's!)
        */
-      button.appendChild(itemSelected);
-      button.appendChild(caret);
-      this._button = simpleDropdown.appendChild(button);
-      optContainer.appendChild(options);
-      this._optContainer = simpleDropdown.appendChild(optContainer);
+      this._button.appendChild(this._itemSelected);
+      this._button.appendChild(caret);
+      this._simpleDropdown.appendChild(this._button);
+      this._optContainer.appendChild(options);
+      this._simpleDropdown.appendChild(this._optContainer);
 
-      // Replace de oldDropdown with simpleDropdown
-      oldDropdown.parentNode.replaceChild(simpleDropdown, oldDropdown);
+      // Replace oldDropdown with simpleDropdown
+      oldDropdown.parentNode.replaceChild(this._simpleDropdown, oldDropdown);
     },
 
     /**
      * Add Event Listners
      */
     _initEventHandlers: function () {
-      var addEventListener =  window.attachEvent || window.addEventListener;
-      var click = window.attachEvent ? 'onclick' : 'click';
 
-      addEventListener(click, function () {
-        if ( this._hasClass(this._simpleDropdown, 'is-open') ) {
-
+      var self = this;
+      var showDropdownOptionsHandler = function () {
+        if ( self._hasClass(self._simpleDropdown, 'is-open') )
+        {
+          self._removeClass(self._simpleDropdown, 'is-open');
+          self._optContainer.style.display = '';
         }
+        else
+        {
+          self._addClass(self._simpleDropdown, 'is-open');
+          self._optContainer.style.display = 'block';
+        }
+      };
+
+      var itemSelectHandler = function (event) {
+        if (event.target.tagName === 'LI')
+        {
+          var itemSelectedExists = self._optContainer.querySelector('.is-selected');
+          itemSelectedExists && self._removeClass(itemSelectedExists, 'is-selected');
+
+          var target = event.target;
+          target.className = 'is-selected';
+          self._itemSelected.innerHTML = target.innerHTML;
+          showDropdownOptionsHandler();
+        }
+      };
+
+      self._button.addEventListener('click', function () {
+        showDropdownOptionsHandler();
+      });
+
+      self._optContainer.querySelector('.SimpleDropdownList-options').addEventListener('click', function (event) {
+        itemSelectHandler(event);
       });
 
     },
