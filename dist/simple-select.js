@@ -2,15 +2,15 @@
 
   "use strict";
 
-  window.SimpleDropdownList = function (el) {
+  window.SimpleSelect = function (el) {
     this._init(el);
     this._initEventHandlers();
   };
 
-  window.SimpleDropdownList.prototype = {
+  window.SimpleSelect.prototype = {
 
     _button: {},
-    _simpleDropdown: {},
+    _simpleSelect: {},
     _optContainer: {},
     _itemSelected: {},
 
@@ -20,36 +20,36 @@
        */
        var docFrag = document.createDocumentFragment();
 
-      var oldDropdown = document.querySelector(el);
-      var oldDropdownOptions = oldDropdown.querySelectorAll('option');
+      var oldSelect = document.querySelector(el);
+      var oldSelectOptions = oldSelect.querySelectorAll('option');
 
-      this._simpleDropdown = document.createElement('div');
-      this._simpleDropdown.className = 'SimpleDropdownList' + ' ' + oldDropdown.className;
+      this._simpleSelect = document.createElement('div');
+      this._simpleSelect.className = 'SimpleSelect' + ' ' + oldSelect.className;
 
       this._optContainer = document.createElement('div');
-      this._optContainer.className = 'SimpleDropdownList-optContainer';
+      this._optContainer.className = 'SimpleSelect-optContainer';
 
       var options = document.createElement('ul');
-      options.className = 'SimpleDropdownList-options';
+      options.className = 'SimpleSelect-options';
 
-      // Copy <option>'s from oldDropdown to new dropdown element
-      for (var i = 0; i < oldDropdownOptions.length; i++) {
+      // Copy <option>'s from oldSelect to new dropdown element
+      for (var i = 0; i < oldSelectOptions.length; i++) {
         var li = document.createElement('li');
-        li.innerHTML = oldDropdownOptions[i].innerHTML;
-        li.value = oldDropdownOptions[i].innerHTML;
+        li.innerHTML = oldSelectOptions[i].innerHTML;
+        li.value = oldSelectOptions[i].innerHTML;
         options.appendChild(li);
       }
 
       this._button = document.createElement('button');
-      this._button.className = 'SimpleDropdownList-button';
+      this._button.className = 'SimpleSelect-button';
       this._button.type = 'button';
 
       this._itemSelected = document.createElement('span');
-      this._itemSelected.className = 'SimpleDropdownList-itemSelected';
+      this._itemSelected.className = 'SimpleSelect-itemSelected';
       this._itemSelected.innerHTML = options.getElementsByTagName('li')[0].innerHTML;
 
       var caret = document.createElement('span');
-      caret.className = 'SimpleDropdownList-caret';
+      caret.className = 'SimpleSelect-caret';
 
 
       /**
@@ -58,12 +58,12 @@
        */
       this._button.appendChild(this._itemSelected);
       this._button.appendChild(caret);
-      this._simpleDropdown.appendChild(this._button);
+      this._simpleSelect.appendChild(this._button);
       this._optContainer.appendChild(options);
-      this._simpleDropdown.appendChild(this._optContainer);
+      this._simpleSelect.appendChild(this._optContainer);
 
-      // Replace oldDropdown with simpleDropdown
-      oldDropdown.parentNode.replaceChild(this._simpleDropdown, oldDropdown);
+      // Replace oldSelect with simpleSelect
+      oldSelect.parentNode.replaceChild(this._simpleSelect, oldSelect);
     },
 
     /**
@@ -72,15 +72,15 @@
     _initEventHandlers: function () {
 
       var self = this;
-      var showDropdownOptionsHandler = function () {
-        if ( self._hasClass(self._simpleDropdown, 'is-open') )
+      var showSelectOptionsHandler = function () {
+        if ( self._hasClass(self._simpleSelect, 'is-open') )
         {
-          self._removeClass(self._simpleDropdown, 'is-open');
+          self._removeClass(self._simpleSelect, 'is-open');
           self._optContainer.style.display = '';
         }
         else
         {
-          self._addClass(self._simpleDropdown, 'is-open');
+          self._addClass(self._simpleSelect, 'is-open');
           self._optContainer.style.display = 'block';
         }
       };
@@ -94,15 +94,15 @@
           var target = event.target;
           target.className = 'is-selected';
           self._itemSelected.innerHTML = target.innerHTML;
-          showDropdownOptionsHandler();
+          showSelectOptionsHandler();
         }
       };
 
       self._button.addEventListener('click', function () {
-        showDropdownOptionsHandler();
+        showSelectOptionsHandler();
       });
 
-      self._optContainer.querySelector('.SimpleDropdownList-options').addEventListener('click', function (event) {
+      self._optContainer.querySelector('.SimpleSelect-options').addEventListener('click', function (event) {
         itemSelectHandler(event);
       });
 
