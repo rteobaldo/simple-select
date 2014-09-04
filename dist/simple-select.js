@@ -18,7 +18,7 @@
       /**
        * Elements configuration
        */
-       var docFrag = document.createDocumentFragment();
+      var docFrag = document.createDocumentFragment();
 
       var oldSelect = document.querySelector(el);
       var oldSelectOptions = oldSelect.querySelectorAll('option');
@@ -35,7 +35,7 @@
       // Copy <option>'s from oldSelect to new dropdown element
       for (var i = 0; i < oldSelectOptions.length; i++) {
         var li = document.createElement('li');
-        li.innerHTML = oldSelectOptions[i].innerHTML;
+        li.textContent = oldSelectOptions[i].textContent;
         li.value = oldSelectOptions[i].innerHTML;
         options.appendChild(li);
       }
@@ -56,6 +56,7 @@
        * Join all elements (Megazord?!)
        * (Don't change order of appendChild's!)
        */
+      //docFrag.appendChild(this._button);
       this._button.appendChild(this._itemSelected);
       this._button.appendChild(caret);
       this._simpleSelect.appendChild(this._button);
