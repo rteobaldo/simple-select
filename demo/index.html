@@ -4,22 +4,67 @@
   <meta charset="utf-8">
   <title>Simple Select</title>
   <link rel="stylesheet" href="../dist/simple-select.css" media="screen" charset="utf-8" />
+  <style>
+    label {
+      display: block;
+      margin: 20px 0 5px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h2>Choose a food:</h2>
-  <select id="my-select" name="select-name" form="my-form">
-    <option value="">Select a option</option>
-    <option value="french-fries">French Fries</option>
-    <option value="xburger">Cheeseburguer</option>
-    <option value="hot-wings">Hot Wings</option>
-    <option value="limon-pie">Limon Pie</option>
-    <option value="beef-steak">Beef Steak</option>
-    <option value="coxinha">Golden Fried Chicken Drops</option>
-  </select>
+  <h2>What is your request?</h2>
+  <form id="food-form" action="http://localhost:3000/foods" method="post">
+
+    <div>
+      <label>First Food</label>
+      <select id="first-food" name="food-select" form="food-form">
+        <option value="">Select a option</option>
+        <option value="french-fries">French Fries</option>
+        <option value="xburger">Cheeseburguer</option>
+        <option value="hot-wings">Hot Wings</option>
+        <option value="beef-steak">Beef Steak</option>
+        <option value="coxinha">Golden Fried Chicken Drops</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Second Food</label>
+      <select id="second-food" name="food-select" form="food-form">
+        <option value="">Select a option</option>
+        <option value="kit-kat">Kit Kat</option>
+        <option value="limon-pie">Limon Pie</option>
+        <option value="choco-cake">Chocolate Cake</option>
+        <option value="jelly-bean">Jelly Bean</option>
+        <option value="marshmallow">Marshmallow</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Third Food</label>
+      <select id="third-food" name="food-select" form="food-form">
+        <option value="">Select a option</option>
+        <option value="coke">Coke</option>
+        <option value="orange-juice">Orange Juice</option>
+        <option value="wine">Wine</option>
+        <option value="beer">Beer</option>
+        <option value="milk-shake">Milk Shake</option>
+      </select>
+    </div>
+
+  </form>
 
   <script src="../dist/simple-select.js"></script>
   <script charset="utf-8">
-    //var simpleSelect = new SimpleSelect('#my-select');
+    var firstFood = new SimpleSelect('#first-food');
+    var secondFood = new SimpleSelect('#second-food');
+    var thirdFood = new SimpleSelect('#third-food');
+
+    // (function () {
+    //   firstFood.on('change', function() {
+    //
+    //   });
+    // })();
 
   </script>
 </body>

@@ -8,4 +8,8 @@ Simple select to replace `<select>` when need styling it.
 - Lightweight;
 - Simple;
 
+### TODO
+- Simplify CSS;
+- Add on change;
+
 Inspired on @blakehaswell gist: https://gist.github.com/blakehaswell/2424807

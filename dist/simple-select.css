@@ -1,4 +1,5 @@
 .SimpleSelect {
+  position: relative;
   display: inline-block;
   width: 220px;
   font: 14px/1 sans-serif;
@@ -38,11 +39,16 @@
 }
 
 .SimpleSelect-optContainer {
+  position: absolute;
   display: none;
+  width: 100%;
+  background: #fff;
   border-right: 1px solid;
   border-left: 1px solid;
   border-bottom: 1px solid;
   border-color: #000;
+  box-sizing: border-box;
+  z-index: 10001;
 }
 
 .SimpleSelect-options {

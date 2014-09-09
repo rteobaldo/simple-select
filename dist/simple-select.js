@@ -145,6 +145,7 @@
       _this._button.addEventListener('click', function(event) {
         showSelectOptionsHandler();
         event.stopPropagation();
+        event.preventDefault();
       });
 
       _this._optContainer
@@ -198,8 +199,12 @@
   }
   if (typeof Event.prototype.stopPropagation === 'undefined') {
     Event.prototype.stopPropagation = function() {
-      this.returnFalse = false;
       this.cancelBubble = true;
+    };
+  }
+  if (typeof Event.prototype.preventDefault === 'undefined') {
+    Event.prototype.preventDefault = function() {
+      this.returnValue = false;
     };
   }
 
